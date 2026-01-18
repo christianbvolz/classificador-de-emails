@@ -215,7 +215,7 @@ export function InputSection({ onAnalyze, isLoading }: InputSectionProps) {
       <button
         onClick={handleAnalyze}
         disabled={isLoading}
-        className={`w-full mt-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-[1.02] flex items-center justify-center space-x-2 ${
+        className={`w-full mt-6 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-[1.02] flex items-center justify-center space-x-2 ${
           isLoading ? 'opacity-50 cursor-not-allowed' : ''
         }`}
       >

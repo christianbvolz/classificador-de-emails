@@ -131,15 +131,15 @@ export function ResultCard({ result, index }: ResultCardProps) {
         </div>
       </div>
 
-      <div className="bg-indigo-50 dark:bg-indigo-900/20 rounded-lg p-4">
+      <div className="bg-emerald-50 dark:bg-emerald-900/20 rounded-lg p-4">
         <div className="flex items-center justify-between mb-3">
           <h4 className="font-semibold text-gray-800 dark:text-gray-100 flex items-center">
-            <MessageSquare className="w-4 h-4 mr-2 text-indigo-600 dark:text-indigo-400" />
+            <MessageSquare className="w-4 h-4 mr-2 text-emerald-600 dark:text-emerald-400" />
             Resposta Sugerida
           </h4>
           <button
             onClick={handleCopyAll}
-            className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition flex items-center text-sm font-medium"
+            className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition flex items-center text-sm font-medium"
           >
             {copiedAll ? (
               <>
@@ -155,12 +155,12 @@ export function ResultCard({ result, index }: ResultCardProps) {
           </button>
         </div>
 
-        <div className="mb-3 bg-white dark:bg-gray-700 rounded-lg p-3 border border-indigo-200 dark:border-indigo-800">
+        <div className="mb-3 bg-white dark:bg-gray-700 rounded-lg p-3 border border-emerald-200 dark:border-emerald-800">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase">Assunto</span>
+            <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase">Assunto</span>
             <button
               onClick={handleCopySubject}
-              className="text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition flex items-center text-xs"
+              className="text-emerald-500 dark:text-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-300 transition flex items-center text-xs"
             >
               {copiedSubject ? (
                 <>
@@ -178,12 +178,12 @@ export function ResultCard({ result, index }: ResultCardProps) {
           <p className="text-gray-800 dark:text-gray-100 text-sm font-medium">{result.suggestedSubject}</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-700 rounded-lg p-3 border border-indigo-200 dark:border-indigo-800">
+        <div className="bg-white dark:bg-gray-700 rounded-lg p-3 border border-emerald-200 dark:border-emerald-800">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase">Corpo</span>
+            <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase">Corpo</span>
             <button
               onClick={handleCopyBody}
-              className="text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition flex items-center text-xs"
+              className="text-emerald-500 dark:text-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-300 transition flex items-center text-xs"
             >
               {copiedBody ? (
                 <>
