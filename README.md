@@ -7,16 +7,44 @@
 
 ```
 classificador-de-email/
-├── backend/              # API FastAPI + IA
-│   ├── app/             # Código da aplicação
-│   ├── Dockerfile       # Container backend
-│   └── requirements.txt # Dependências Python
-├── frontend/            # Interface web (em breve)
-└── README.md           # Este arquivo
+├── backend/                    # API FastAPI + IA
+│   ├── app/                   # Código da aplicação
+│   │   ├── main.py           # Endpoints da API
+│   │   ├── services.py       # Integração com LLM
+│   │   ├── utils.py          # Pipeline NLP
+│   │   ├── schemas.py        # Modelos Pydantic
+│   │   ├── templates.py      # Templates de respostas
+│   │   └── exceptions.py     # Tratamento de erros
+│   ├── Dockerfile            # Container backend
+│   ├── requirements.txt      # Dependências Python
+│   └── .env                  # Variáveis de ambiente
+├── frontend/                  # Interface web React + TypeScript
+│   ├── src/
+│   │   ├── components/       # Componentes React
+│   │   ├── utils/            # Utilitários
+│   │   ├── App.tsx           # Componente principal
+│   │   ├── api.ts            # Cliente da API
+│   │   └── types.ts          # Tipos TypeScript
+│   ├── Dockerfile            # Container frontend (Nginx)
+│   ├── package.json          # Dependências Node
+│   └── .env.local            # Variáveis de ambiente
+├── docker-compose.yml         # Orquestração full stack
+└── README.md                  # Este arquivo
 ```
 
-## 🌐 API em Produção
+## 🌐 Aplicação em Produção
 
+### Frontend (Interface Web)
+**URL:** https://classificador-de-emails-mauve.vercel.app/
+
+**Funcionalidades:**
+- ✍️ Input manual de emails (assunto + corpo)
+- 📁 Upload de arquivos (.txt com múltiplos emails)
+- 🎨 Interface moderna com React + TypeScript + TailwindCSS
+- 📋 Resultados com classificação, categoria e respostas sugeridas
+- 📝 Copiar assunto, corpo ou resposta completa
+
+### API (Backend)
 **URL Base:** https://classificador-de-emails-qts5.onrender.com
 
 **Endpoints Disponíveis:**
@@ -90,16 +118,15 @@ classificador-de-email/
 - **Modelos spaCy:** Pré-instalados no container (pt_core_news_sm, en_core_web_sm)
 
 **O que NÃO foi implementado / pendente:**
-- Interface web (HTML) para upload de arquivos ou input direto de texto
 - Persistência de dados (banco de dados)
 - Testes automatizados (unitários e integração)
 - Pipeline CI/CD
 - Rate limiting e autenticação na API
-- Deploy público (AWS, GCP, Azure)
+- Sistema de feedback para melhorar classificações
 
 ## Como Rodar
 
-### **Opção 1: Docker (Recomendado)**
+### **Opção 1: Docker Compose (Recomendado - Full Stack)**
 
 1. **Clone o repositório:**
    ```bash
@@ -108,45 +135,66 @@ classificador-de-email/
    ```
 
 2. **Configure as variáveis de ambiente:**
-   Crie um arquivo `.env` na raiz do projeto:
+   
+   **Backend** (`backend/.env`):
    ```bash
    GROQ_API_KEY=seu_token_aqui
    ```
    > Obtenha sua chave em: https://console.groq.com/keys
-
-3. **Inicie o container:**
+   
+   **Frontend** (`frontend/.env.local`):
    ```bash
-   docker-compose up --build
+   VITE_API_URL=http://localhost:8000
    ```
 
-4. **Acesse a API:**
-   - Swagger UI: http://localhost:8000/docs
-   - Endpoint: http://localhost:8000/process-email
-
-### **Opção 2: Instalação Local**
-
-1. **Clone e instale dependências:**
+3. **Inicie os containers:**
    ```bash
-   git clone git@github.com:christianbvolz/classificador-de-emails.git
-   cd classificador-de-emails
+   docker compose up --build
+   ```
+
+4. **Acesse a aplicação:**
+   - **Frontend:** http://localhost:3000
+   - **API (Swagger):** http://localhost:8000/docs
+   - **API (Endpoint):** http://localhost:8000/process-email
+
+### **Opção 2: Instalação Local (Desenvolvimento)**
+
+**Backend:**
+1. **Instale dependências:**
+   ```bash
+   cd backend
    pip install -r requirements.txt
-   ```
-
-2. **Baixe os modelos spaCy:**
-   ```bash
    python -m spacy download en_core_web_sm
    python -m spacy download pt_core_news_sm
    ```
 
-3. **Configure o `.env`:**
+2. **Configure `backend/.env`:**
    ```bash
    GROQ_API_KEY=seu_token_aqui
    ```
 
-4. **Inicie o servidor:**
+3. **Inicie o servidor:**
    ```bash
    uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
    ```
+
+**Frontend:**
+1. **Instale dependências:**
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+2. **Configure `frontend/.env.local`:**
+   ```bash
+   VITE_API_URL=http://localhost:8000
+   ```
+
+3. **Inicie o dev server:**
+   ```bash
+   npm run dev
+   ```
+   Acesse: http://localhost:5173
 
 ### **Exemplos de Uso**
 
@@ -201,13 +249,27 @@ curl -X POST "http://localhost:8000/process-email" \
 ## Arquitetura Técnica
 
 ### **Stack Tecnológico**
+
+**Backend:**
 - **Framework:** FastAPI 0.115+ (async, high-performance)
 - **LLM Provider:** Groq Cloud API (Llama-3.3-70b-versatile)
 - **NLP:** spaCy 3.8+ com modelos pt_core_news_sm e en_core_web_sm
 - **Validação:** Pydantic v2 com alias_generator e conlist
 - **Language Detection:** langdetect (baseado em n-grams)
 - **Templates:** Sistema modular de templates bilíngues (6 categorias)
-- **Container:** Docker + docker-compose
+
+**Frontend:**
+- **Framework:** React 18 + TypeScript
+- **Build Tool:** Vite
+- **Styling:** TailwindCSS v3
+- **Icons:** Lucide React
+- **HTTP Client:** Fetch API nativa
+
+**Infraestrutura:**
+- **Containers:** Docker + Docker Compose
+- **Backend Deploy:** Render (monitorado por UptimeRobot)
+- **Frontend Deploy:** Vercel (CDN global, zero downtime)
+- **Network:** Bridge network para comunicação entre containers
 
 ### **Fluxo de Processamento**
 ```
@@ -349,9 +411,19 @@ Implementado em `_validate_response()` e `_get_fallback_response()`:
 - [ ] Health checks e métricas de uptime
 
 **Referências de arquivos principais:**
-- [app/main.py](app/main.py) — ponto de entrada da API
-- [app/services.py](app/services.py) — integração com LLM e orquestração
-- [app/utils.py](app/utils.py) — pipeline de pré-processamento NLP
-- [app/schemas.py](app/schemas.py) — modelos de request/response
-- [app/exceptions.py](app/exceptions.py) — erros específicos do app
+
+**Backend:**
+- [backend/app/main.py](backend/app/main.py) — ponto de entrada da API
+- [backend/app/services.py](backend/app/services.py) — integração com LLM e orquestração
+- [backend/app/utils.py](backend/app/utils.py) — pipeline de pré-processamento NLP
+- [backend/app/schemas.py](backend/app/schemas.py) — modelos de request/response
+- [backend/app/templates.py](backend/app/templates.py) — templates de respostas
+- [backend/app/exceptions.py](backend/app/exceptions.py) — erros específicos do app
+
+**Frontend:**
+- [frontend/src/App.tsx](frontend/src/App.tsx) — componente principal
+- [frontend/src/api.ts](frontend/src/api.ts) — cliente da API
+- [frontend/src/types.ts](frontend/src/types.ts) — tipos TypeScript
+- [frontend/src/components/](frontend/src/components/) — componentes React
+- [frontend/src/utils/emailParser.ts](frontend/src/utils/emailParser.ts) — parser de arquivos
 

@@ -62,10 +62,45 @@ export function InputSection({ onAnalyze, isLoading }: InputSectionProps) {
 
       try {
         const content = await readFileContent(uploadedFile);
-        const emails = parseEmailsFromFile(content);
+        let emails: Email[];
+
+        if (uploadedFile.name.endsWith('.json')) {
+          // Parse JSON directly
+          try {
+            const parsedData = JSON.parse(content);
+            
+            // Validate if it's an array
+            if (!Array.isArray(parsedData)) {
+              setError('Formato JSON inválido. Esperado um array de emails.');
+              return;
+            }
+
+            // Validate structure
+            emails = parsedData.map((item, index) => {
+              if (!item.subject || !item.body) {
+                throw new Error(`Email ${index + 1} está faltando 'subject' ou 'body'`);
+              }
+              return {
+                subject: item.subject,
+                body: item.body
+              };
+            });
+          } catch (jsonError) {
+            setError('Erro ao processar JSON: ' + (jsonError as Error).message);
+            return;
+          }
+        } else {
+          // Parse .txt file with custom format
+          emails = parseEmailsFromFile(content);
+        }
 
         if (emails.length === 0) {
-          setError('Nenhum email encontrado no arquivo. Formato esperado: "Subject: ... Body: ..."');
+          setError('Nenhum email encontrado no arquivo.');
+          return;
+        }
+
+        if (emails.length > 10) {
+          setError('Máximo de 10 emails por vez. Seu arquivo contém ' + emails.length + ' emails.');
           return;
         }
 
@@ -77,20 +112,20 @@ export function InputSection({ onAnalyze, isLoading }: InputSectionProps) {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-      <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
+      <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center">
         <Pencil className="w-5 h-5 mr-2 text-primary" />
         Inserir Email
       </h2>
 
       {/* Tab Selector */}
-      <div className="flex space-x-2 mb-4 border-b border-gray-200">
+      <div className="flex space-x-2 mb-4 border-b border-gray-200 dark:border-gray-700">
         <button
           onClick={() => setMode('text')}
           className={`px-4 py-2 font-medium transition flex items-center ${
             mode === 'text'
               ? 'text-primary border-b-2 border-primary'
-              : 'text-gray-500 hover:text-primary'
+              : 'text-gray-500 dark:text-gray-400 hover:text-primary'
           }`}
         >
           <Type className="w-4 h-4 mr-1" />
@@ -101,7 +136,7 @@ export function InputSection({ onAnalyze, isLoading }: InputSectionProps) {
           className={`px-4 py-2 font-medium transition flex items-center ${
             mode === 'file'
               ? 'text-primary border-b-2 border-primary'
-              : 'text-gray-500 hover:text-primary'
+              : 'text-gray-500 dark:text-gray-400 hover:text-primary'
           }`}
         >
           <Upload className="w-4 h-4 mr-1" />
@@ -120,22 +155,22 @@ export function InputSection({ onAnalyze, isLoading }: InputSectionProps) {
       {mode === 'text' && (
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Assunto</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Assunto</label>
             <input
               type="text"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="Ex: Problema com pagamento"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Corpo do Email</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Corpo do Email</label>
             <textarea
               value={body}
               onChange={(e) => setBody(e.target.value)}
               rows={8}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="Cole o conteúdo do email aqui..."
             />
           </div>
@@ -147,17 +182,17 @@ export function InputSection({ onAnalyze, isLoading }: InputSectionProps) {
         <div
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
-          className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary transition cursor-pointer"
+          className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-primary dark:hover:border-primary transition cursor-pointer"
           onClick={() => document.getElementById('file-input')?.click()}
         >
-          <UploadCloud className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-          <p className="text-gray-600 mb-2">
+          <UploadCloud className="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500 mb-4" />
+          <p className="text-gray-600 dark:text-gray-400 mb-2">
             <label htmlFor="file-input" className="text-primary font-semibold cursor-pointer hover:underline">
               Clique para selecionar
             </label>{' '}
             ou arraste um arquivo .txt ou .json
           </p>
-          <p className="text-sm text-gray-500">Tamanho máximo: 1MB</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Tamanho máximo: 1MB</p>
           <input
             id="file-input"
             type="file"

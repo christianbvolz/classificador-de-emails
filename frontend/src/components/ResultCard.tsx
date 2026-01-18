@@ -101,10 +101,10 @@ export function ResultCard({ result, index }: ResultCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 fade-in">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 fade-in">
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center space-x-2">
-          <span className="text-sm font-semibold text-gray-500">Email {index + 1}</span>
+          <span className="text-sm font-semibold text-gray-500 dark:text-gray-400">Email {index + 1}</span>
         </div>
         <div className="flex items-center space-x-2">
           <span className={`px-3 py-1 rounded-full text-xs font-semibold ${productiveClass} border flex items-center`}>
@@ -115,14 +115,14 @@ export function ResultCard({ result, index }: ResultCardProps) {
       </div>
 
       <div className="mb-4">
-        <h3 className="font-bold text-gray-800 mb-2 flex items-center">
-          <Mail className="w-4 h-4 mr-2 text-gray-600" />
+        <h3 className="font-bold text-gray-800 dark:text-gray-100 mb-2 flex items-center">
+          <Mail className="w-4 h-4 mr-2 text-gray-600 dark:text-gray-400" />
           {result.originalEmail.subject}
         </h3>
-        <p className="text-sm text-gray-600 line-clamp-3">{result.originalEmail.body}</p>
+        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">{result.originalEmail.body}</p>
       </div>
 
-      <div className="border-t border-gray-200 pt-4 mb-4">
+      <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mb-4">
         <div className="flex items-center space-x-2 mb-3">
           <CategoryIcon className={`w-5 h-5 ${iconColorClasses[config.color]}`} />
           <span className={`px-3 py-1 rounded-full text-sm font-semibold ${colorClasses[config.color]}`}>
@@ -131,15 +131,15 @@ export function ResultCard({ result, index }: ResultCardProps) {
         </div>
       </div>
 
-      <div className="bg-indigo-50 rounded-lg p-4">
+      <div className="bg-indigo-50 dark:bg-indigo-900/20 rounded-lg p-4">
         <div className="flex items-center justify-between mb-3">
-          <h4 className="font-semibold text-gray-800 flex items-center">
-            <MessageSquare className="w-4 h-4 mr-2 text-indigo-600" />
+          <h4 className="font-semibold text-gray-800 dark:text-gray-100 flex items-center">
+            <MessageSquare className="w-4 h-4 mr-2 text-indigo-600 dark:text-indigo-400" />
             Resposta Sugerida
           </h4>
           <button
             onClick={handleCopyAll}
-            className="text-indigo-600 hover:text-indigo-700 transition flex items-center text-sm font-medium"
+            className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition flex items-center text-sm font-medium"
           >
             {copiedAll ? (
               <>
@@ -155,12 +155,12 @@ export function ResultCard({ result, index }: ResultCardProps) {
           </button>
         </div>
 
-        <div className="mb-3 bg-white rounded-lg p-3 border border-indigo-200">
+        <div className="mb-3 bg-white dark:bg-gray-700 rounded-lg p-3 border border-indigo-200 dark:border-indigo-800">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-semibold text-indigo-600 uppercase">Assunto</span>
+            <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase">Assunto</span>
             <button
               onClick={handleCopySubject}
-              className="text-indigo-500 hover:text-indigo-600 transition flex items-center text-xs"
+              className="text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition flex items-center text-xs"
             >
               {copiedSubject ? (
                 <>
@@ -175,15 +175,15 @@ export function ResultCard({ result, index }: ResultCardProps) {
               )}
             </button>
           </div>
-          <p className="text-gray-800 text-sm font-medium">{result.suggestedSubject}</p>
+          <p className="text-gray-800 dark:text-gray-100 text-sm font-medium">{result.suggestedSubject}</p>
         </div>
 
-        <div className="bg-white rounded-lg p-3 border border-indigo-200">
+        <div className="bg-white dark:bg-gray-700 rounded-lg p-3 border border-indigo-200 dark:border-indigo-800">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-semibold text-indigo-600 uppercase">Corpo</span>
+            <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase">Corpo</span>
             <button
               onClick={handleCopyBody}
-              className="text-indigo-500 hover:text-indigo-600 transition flex items-center text-xs"
+              className="text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition flex items-center text-xs"
             >
               {copiedBody ? (
                 <>
@@ -198,7 +198,7 @@ export function ResultCard({ result, index }: ResultCardProps) {
               )}
             </button>
           </div>
-          <p className="text-gray-700 text-sm whitespace-pre-line">{result.suggestedBody}</p>
+          <p className="text-gray-700 dark:text-gray-300 text-sm whitespace-pre-line">{result.suggestedBody}</p>
         </div>
       </div>
     </div>
