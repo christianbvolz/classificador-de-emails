@@ -104,7 +104,18 @@ async def process_email(request: EmailListRequest):
         # Combine subject and body for processing
         full_email_text = f"Subject: {email_item.subject}\n\nBody: {email_item.body}"
         
-        result = classify_and_respond(full_email_text)
+        result_dict = classify_and_respond(full_email_text)
+        
+        # Convert dict to EmailResponse model with original email
+        result = EmailResponse(
+            is_productive=result_dict.get("is_productive", True),
+            category=result_dict.get("category"),
+            suggested_subject=result_dict.get("suggested_subject", ""),
+            suggested_body=result_dict.get("suggested_body", ""),
+            detected_language=result_dict.get("detected_language"),
+            original_email=email_item  # Pass Email object directly
+        )
+        
         results.append(result)
     
     return results

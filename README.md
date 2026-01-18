@@ -3,7 +3,7 @@
 **Visão Geral:**
 - **Contexto:** Este repositório contém uma solução para classificar emails em **Produtivo** ou **Improdutivo** e gerar respostas automáticas, conforme descrito em [contextoDesafio.md](contextoDesafio.md).
 
-## �️ Estrutura do Projeto (Monorepo)
+## �️ Estrutura do Projeto
 
 ```
 classificador-de-email/

@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field, ConfigDict, conlist
 from pydantic.alias_generators import to_camel
 from typing import Optional, List
 
-class EmailRequest(BaseModel):
+class Email(BaseModel):
     """Represents an email with subject and body.
 
     Used as an item within batch requests.
@@ -15,7 +15,7 @@ class EmailListRequest(BaseModel):
 
     Enforces 1–10 items in the `emails` list.
     """
-    emails: conlist(EmailRequest, min_length=1, max_length=10) = Field(
+    emails: conlist(Email, min_length=1, max_length=10) = Field(
         ...,
         description="List of 1-10 emails to process"
     )
@@ -31,7 +31,7 @@ class EmailResponse(BaseModel):
     suggested_subject: str
     suggested_body: str
     detected_language: Optional[str] = None
-    original_email: str
+    original_email: Email
 
     # Pydantic configuration for naming conventions and documentation
     model_config = ConfigDict(
@@ -44,7 +44,10 @@ class EmailResponse(BaseModel):
                 "suggestedSubject": "Re: Technical Support Request",
                 "suggestedBody": "Dear customer, we received your request...",
                 "detectedLanguage": "en",
-                "originalEmail": "Subject: Help\nBody: I need assistance..."
+                "originalEmail": {
+                    "subject": "Help with system",
+                    "body": "I need assistance with the login process."
+                }
             }
         }
     )

@@ -1,0 +1,17 @@
+Subject: Problema com meu pagamento
+Body: Olá, estou tentando realizar o pagamento do plano premium mas meu cartão de crédito está sendo recusado. Podem verificar o que está acontecendo? Já tentei 3 vezes.
+
+Subject: Como funciona a integração?
+Body: Preciso saber como funciona a integração da API com sistemas externos. Vocês têm documentação detalhada sobre isso?
+
+Subject: Oi! Tudo bem?
+Body: Oi pessoal, tudo bem com vocês? Espero que estejam bem!
+
+Subject: Sistema muito lento
+Body: O sistema está extremamente lento hoje. Já é a terceira vez esta semana que isso acontece. Preciso de uma solução urgente pois estou perdendo produtividade.
+
+Subject: Erro 500 no login
+Body: Toda vez que tento fazer login recebo um erro 500. Já limpei cache, tentei outros navegadores mas nada funciona. Preciso de ajuda técnica!
+
+Subject: Ganhe R$ 10.000 trabalhando de casa!!!
+Body: CLIQUE AQUI AGORA e descubra como ganhar dinheiro sem sair de casa! Oportunidade única! Milhares de pessoas já estão lucrando!!!
