@@ -316,11 +316,9 @@ Implementado em `_validate_response()` e `_get_fallback_response()`:
 - [ ] Fine-tuning do modelo com feedback coletado
 
 ### **Operações e Deploy**
-- [ ] Deploy em cloud (AWS ECS, GCP Cloud Run, ou Azure Container Instances)
 - [ ] Monitoramento com Prometheus + Grafana
 - [ ] Alertas para rate limits da API Groq
 - [ ] Health checks e métricas de uptime
-- [ ] Preparar Dockerfile/compose para deploy e publicar em um serviço (Render/Heroku/Spaces).
 
 **Referências de arquivos principais:**
 - [app/main.py](app/main.py) — ponto de entrada da API
