@@ -7,8 +7,7 @@ services:
     runtime: docker
     plan: free
     region: oregon  # Ou 'frankfurt' se preferir Europa
-    branch: main
-    dockerfilePath: ./Dockerfile
+    branch: main    rootDir: backend  # ← IMPORTANTE: Aponta para pasta backend    dockerfilePath: ./Dockerfile
     dockerContext: .
     envVars:
       - key: GROQ_API_KEY

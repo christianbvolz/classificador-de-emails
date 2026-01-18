@@ -3,6 +3,18 @@
 **Visão Geral:**
 - **Contexto:** Este repositório contém uma solução para classificar emails em **Produtivo** ou **Improdutivo** e gerar respostas automáticas, conforme descrito em [contextoDesafio.md](contextoDesafio.md).
 
+## �️ Estrutura do Projeto (Monorepo)
+
+```
+classificador-de-email/
+├── backend/              # API FastAPI + IA
+│   ├── app/             # Código da aplicação
+│   ├── Dockerfile       # Container backend
+│   └── requirements.txt # Dependências Python
+├── frontend/            # Interface web (em breve)
+└── README.md           # Este arquivo
+```
+
 ## 🌐 API em Produção
 
 **URL Base:** https://classificador-de-emails-qts5.onrender.com
@@ -22,10 +34,10 @@
 ## Funcionalidades Implementadas
 
 ### **Backend API (FastAPI)**
-- **Endpoint principal:** `POST /process-email` em [app/main.py](app/main.py)
-- **Processamento em lote:** Aceita 1-10 emails por requisição através do modelo [EmailListRequest](app/schemas.py)
+- **Endpoint principal:** `POST /process-email` em [backend/app/main.py](backend/app/main.py)
+- **Processamento em lote:** Aceita 1-10 emails por requisição através do modelo [EmailListRequest](backend/app/schemas.py)
 - **Validação robusta:** Usa Pydantic com `conlist` para garantir limites de batch (min: 1, max: 10)
-- **Tratamento de exceções:** Handler customizado para [AppError](app/exceptions.py) com códigos de erro específicos
+- **Tratamento de exceções:** Handler customizado para [AppError](backend/app/exceptions.py) com códigos de erro específicos
 - **Documentação interativa:** Swagger UI disponível em `/docs` com exemplos de uso
 
 ### **Sistema de Templates de Respostas** ([app/templates.py](app/templates.py))
