@@ -1,0 +1,42 @@
+[
+  {
+    "subject": "Urgent: Payment Failed for Invoice #4402",
+    "body": "Hi, I tried to pay my invoice but the system kept rejecting my card. Can you check if there is an issue with my account?"
+  },
+  {
+    "subject": "Refund Request for Order 882",
+    "body": "I was charged twice for my premium subscription. Please refund the duplicate charge as soon as possible."
+  },
+  {
+    "subject": "Can't access my account",
+    "body": "The app says my password is wrong even after I performed a successful reset. I need help logging in."
+  },
+  {
+    "subject": "Happy Holidays!",
+    "body": "Wishing the entire AutoU team a wonderful break and a prosperous New Year!"
+  },
+  {
+    "subject": "SEO Services for your website",
+    "body": "We can help AutoU reach the first page of Google with our proprietary SEO tools. Are you interested in a free audit?"
+  },
+  {
+    "subject": "Erro ao realizar PIX",
+    "body": "Tentei fazer um Pix agora e deu erro de conexão. O dinheiro saiu da conta mas o recebedor não recebeu nada."
+  },
+  {
+    "subject": "Pedido de Estorno de Assinatura",
+    "body": "Cancelei meu plano ontem, mas hoje de manhã houve uma nova cobrança no meu cartão. Solicito o estorno imediato."
+  },
+  {
+    "subject": "Dúvida sobre Limite de Crédito",
+    "body": "Gostaria de saber por que meu pedido de aumento de limite foi negado, já que pago todas as faturas em dia."
+  },
+  {
+    "subject": "Boas Festas!",
+    "body": "A equipe da consultoria XPTO deseja a todos da AutoU um excelente Natal e um ano novo cheio de conquistas."
+  },
+  {
+    "subject": "Consultoria de RH",
+    "body": "Gostaria de apresentar nossas novas soluções de recrutamento e seleção focadas em empresas de tecnologia."
+  }
+]

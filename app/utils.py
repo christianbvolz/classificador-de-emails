@@ -1,3 +1,9 @@
+"""Utilities for NLP processing: language detection, cleaning, and lemmatization.
+
+This module provides helpers used by the API to detect language, clean, and
+lemmatize email text using spaCy.
+"""
+
 import spacy
 import re
 from functools import lru_cache
@@ -15,9 +21,18 @@ SUPPORTED_MODELS = {
 
 @lru_cache(maxsize=2)
 def get_spacy_model(lang: str):
-    """
-    Loads the spaCy model from memory or disk.
-    Returns None if no model is supported for the language.
+    """Load a spaCy model for the requested language.
+
+    Args:
+        lang (str): ISO language code (e.g. 'pt' or 'en').
+
+    Returns:
+        The loaded spaCy language model instance, or ``None`` if the language
+        is not supported by this service.
+
+    Raises:
+        NLPProcessingError: If the language is supported but the spaCy model
+            package is not installed or cannot be loaded in the runtime.
     """
     model_name = SUPPORTED_MODELS.get(lang)
     if not model_name:
@@ -31,12 +46,23 @@ def get_spacy_model(lang: str):
         )
 
 def clean_email_text(text: str) -> tuple[str, str]:
-    """
-    Main NLP Pipeline: 
-    1. Removes noise (HTML, URLs, Emails).
-    2. Detects the language.
-    3. Lemmatizes the text based on the detected language.
-    Returns: (cleaned_text, detected_language)
+    """Clean and lemmatize email text.
+
+    The pipeline performs regex-based noise removal (HTML tags, URLs,
+    and email addresses), attempts to detect the text language, and when a
+    corresponding spaCy model is available, lemmatizes and filters tokens
+    (removing stop words, punctuation and spaces).
+
+    Args:
+        text (str): Raw email text to process.
+
+    Returns:
+        tuple[str, str]: A pair ``(cleaned_text, detected_language)`` where
+        ``cleaned_text`` is the processed, lowercased, token-joined string and
+        ``detected_language`` is the ISO code detected (e.g. 'pt' or 'en').
+
+    Raises:
+        NLPProcessingError: For unexpected errors during processing.
     """
     try:
         # 1. Regex Cleaning
