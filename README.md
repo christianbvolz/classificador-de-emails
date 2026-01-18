@@ -3,6 +3,22 @@
 **Visão Geral:**
 - **Contexto:** Este repositório contém uma solução para classificar emails em **Produtivo** ou **Improdutivo** e gerar respostas automáticas, conforme descrito em [contextoDesafio.md](contextoDesafio.md).
 
+## 🌐 API em Produção
+
+**URL Base:** https://classificador-de-emails-qts5.onrender.com
+
+**Endpoints Disponíveis:**
+- 📖 **Documentação Interativa:** https://classificador-de-emails-qts5.onrender.com/docs
+- ❤️ **Health Check:** https://classificador-de-emails-qts5.onrender.com/health
+- 📧 **Processar Emails:** `POST https://classificador-de-emails-qts5.onrender.com/process-email`
+
+**Monitoramento:**
+- 🟢 API monitorada 24/7 via [UptimeRobot](https://uptimerobot.com)
+- ⏱️ Verificações a cada 5 minutos
+- 🔄 Uptime garantido (sem sleep mode)
+
+---
+
 ## Funcionalidades Implementadas
 
 ### **Backend API (FastAPI)**
