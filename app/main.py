@@ -7,6 +7,7 @@ suggested responses for each email.
 
 import logging
 from fastapi import FastAPI, Request, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from typing import List
 from .schemas import EmailListRequest, EmailResponse
@@ -21,6 +22,34 @@ app = FastAPI(
     description="High-performance email analysis using Llama 3 on Groq LPUs.",
     version="1.1.0"
 )
+
+# Enable CORS for frontend integration
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # In production, specify your frontend domain
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/")
+async def root():
+    """Root endpoint with API information."""
+    return {
+        "name": "Email Classifier API",
+        "version": "1.1.0",
+        "docs": "/docs",
+        "health": "/health",
+        "status": "online"
+    }
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for monitoring."""
+    return {
+        "status": "healthy",
+        "service": "email-classifier"
+    }
 
 @app.exception_handler(AppError)
 async def app_exception_handler(request: Request, exc: AppError):

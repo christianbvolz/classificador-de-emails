@@ -1,0 +1,17 @@
+# Render Blueprint for Email Classifier API
+# This file enables one-click deployment to Render
+
+services:
+  - type: web
+    name: email-classifier-api
+    runtime: docker
+    plan: free
+    region: oregon  # Ou 'frankfurt' se preferir Europa
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false  # Será configurada manualmente no dashboard
+    healthCheckPath: /docs
+    autoDeploy: true
