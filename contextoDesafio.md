@@ -62,7 +62,7 @@ Desenvolver uma aplicação web simples que utilize inteligência artificial par
 
 **Deploy da Aplicação:**
 
-- Hospedar a aplicação web em uma plataforma de nuvem gratuita (como Heroku, Vercel, AWS Free Tier, Google Cloud Platform, etc.) e disponibilizar um link online e funcional para que o time da AutoU ou usuários externos possam acessar e testar o funcionamento da solução.
+- Hospedar a aplicação web em uma plataforma de nuvem gratuita (como Heroku, Vercel, AWS Free Tier, Google Cloud Platform, etc.) e disponibilizar um link online e funcional .
 - Fornecer o link para a aplicação hospedada junto com a submissão do desafio.
 
 ---
@@ -155,8 +155,6 @@ Caso opte por não hospedar a aplicação, justifique brevemente o motivo no cam
 ---
 
 ## Instruções de Entrega
-
-**A entrega deve ser feita exclusivamente através do formulário:** https://airtable.com/appSpmPaaJ41PwbiU/pageVZHk7NuMhfR9J/form**.**
 
 No formulário, você irá colar os seguintes links:
 
