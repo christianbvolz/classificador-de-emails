@@ -32,9 +32,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 async def root():
-    """Root endpoint with API information."""
+    """Root endpoint with API information. 
+    Supports GET and HEAD methods for monitoring."""
     return {
         "name": "Email Classifier API",
         "version": "1.1.0",
@@ -43,9 +44,10 @@ async def root():
         "status": "online"
     }
 
-@app.get("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 async def health_check():
-    """Health check endpoint for monitoring."""
+    """Health check endpoint for monitoring. 
+    Supports GET and HEAD methods to prevent 405 errors."""
     return {
         "status": "healthy",
         "service": "email-classifier"
